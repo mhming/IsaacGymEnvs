@@ -34,6 +34,7 @@ from tasks.anymal_terrain import AnymalTerrain
 from tasks.ball_balance import BallBalance
 from tasks.cartpole import Cartpole 
 from tasks.franka_cabinet import FrankaCabinet
+from tasks.arm5_cabinet import Arm5Cabinet
 from tasks.humanoid import Humanoid
 from tasks.ingenuity import Ingenuity
 from tasks.quadcopter import Quadcopter
@@ -49,6 +50,7 @@ isaacgym_task_map = {
     "BallBalance": BallBalance,
     "Cartpole": Cartpole,
     "FrankaCabinet": FrankaCabinet,
+    "Arm5Cabinet": Arm5Cabinet,
     "Humanoid": Humanoid,
     "Ingenuity": Ingenuity,
     "Quadcopter": Quadcopter,
