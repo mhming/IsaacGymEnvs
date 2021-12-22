@@ -70,11 +70,11 @@ class Arm5Cabinet(VecTask):
         self.prop_length = 0.08
         self.prop_spacing = 0.09
 
-        num_obs = 23
-        num_acts = 9
+        num_obs = 15
+        num_acts = 5
 
-        self.cfg["env"]["numObservations"] = 23
-        self.cfg["env"]["numActions"] = 9
+        self.cfg["env"]["numObservations"] = 15
+        self.cfg["env"]["numActions"] = 5
 
         super().__init__(config=self.cfg, sim_device=sim_device, graphics_device_id=graphics_device_id, headless=headless)
 
@@ -88,7 +88,7 @@ class Arm5Cabinet(VecTask):
         self.gym.refresh_rigid_body_state_tensor(self.sim)
 
         # create some wrapper tensors for different slices
-        self.arm5_default_dof_pos = to_torch([1.157, -1.066, -0.155, -2.239, -1.841, 1.003, 0.469, 0.035, 0.035], device=self.device)
+        self.arm5_default_dof_pos = to_torch([0.0, 0.0, 0.0, 0.0, 0.0], device=self.device)
         self.dof_state = gymtorch.wrap_tensor(dof_state_tensor)
         self.arm5_dof_state = self.dof_state.view(self.num_envs, -1, 2)[:, :self.num_arm5_dofs]
         self.arm5_dof_pos = self.arm5_dof_state[..., 0]
@@ -159,8 +159,8 @@ class Arm5Cabinet(VecTask):
         asset_options.armature = 0.005
         cabinet_asset = self.gym.load_asset(self.sim, asset_root, cabinet_asset_file, asset_options)
 
-        arm5_dof_stiffness = to_torch([400, 400, 400, 400, 400, 400, 400, 1.0e6, 1.0e6], dtype=torch.float, device=self.device)
-        arm5_dof_damping = to_torch([80, 80, 80, 80, 80, 80, 80, 1.0e2, 1.0e2], dtype=torch.float, device=self.device)
+        arm5_dof_stiffness = to_torch([400, 400, 400, 400, 400], dtype=torch.float, device=self.device)
+        arm5_dof_damping = to_torch([80, 80, 80, 80, 80], dtype=torch.float, device=self.device)
 
         self.num_arm5_bodies = self.gym.get_asset_rigid_body_count(arm5_asset)
         self.num_arm5_dofs = self.gym.get_asset_dof_count(arm5_asset)
@@ -191,9 +191,9 @@ class Arm5Cabinet(VecTask):
         self.arm5_dof_lower_limits = to_torch(self.arm5_dof_lower_limits, device=self.device)
         self.arm5_dof_upper_limits = to_torch(self.arm5_dof_upper_limits, device=self.device)
         self.arm5_dof_speed_scales = torch.ones_like(self.arm5_dof_lower_limits)
-        self.arm5_dof_speed_scales[[7, 8]] = 0.1
-        arm5_dof_props['effort'][7] = 200
-        arm5_dof_props['effort'][8] = 200
+        # self.arm5_dof_speed_scales[[3, 4]] = 0.1# 无手指 不设置
+        # arm5_dof_props['effort'][3] = 200
+        # arm5_dof_props['effort'][4] = 200
 
         # set cabinet dof properties
         cabinet_dof_props = self.gym.get_asset_dof_properties(cabinet_asset)
