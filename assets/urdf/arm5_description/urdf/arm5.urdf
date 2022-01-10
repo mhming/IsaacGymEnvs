@@ -1,5 +1,5 @@
 <robot
-  name="arm5">
+  name="Arm5">
   <link
     name="base_link">
     <inertial>
