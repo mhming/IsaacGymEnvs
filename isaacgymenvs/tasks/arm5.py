@@ -92,7 +92,8 @@ class Arm5(VecTask):
 
         # load arm5 asset
         asset_options = gymapi.AssetOptions()
-        asset_options.flip_visual_attachments = True
+        # 网格从 Z-up 左手坐标系切换到 Y-up 右手坐标系。
+        asset_options.flip_visual_attachments = False
         asset_options.fix_base_link = True
         asset_options.collapse_fixed_joints = True
         asset_options.disable_gravity = True
@@ -132,9 +133,9 @@ class Arm5(VecTask):
         # self.arm5_dof_speed_scales[[3, 4]] = 0.1# 无手指 不设置
         # arm5_dof_props['effort'][3] = 200
         # arm5_dof_props['effort'][4] = 200
-
+        # 机械臂起始状态设置
         arm5_start_pose = gymapi.Transform()
-        arm5_start_pose.p = gymapi.Vec3(1.0, 0.0, 0.0)
+        arm5_start_pose.p = gymapi.Vec3(0.0, 0.0, 0.07)
         arm5_start_pose.r = gymapi.Quat(0.0, 0.0, 1.0, 0.0)
 
         # compute aggregate size
