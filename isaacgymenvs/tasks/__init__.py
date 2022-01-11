@@ -36,6 +36,7 @@ from tasks.cartpole import Cartpole
 from tasks.franka_cabinet import FrankaCabinet
 from tasks.arm5_cabinet import Arm5Cabinet
 from tasks.arm5 import Arm5
+from tasks.odcdr6 import Odcdr6
 from tasks.humanoid import Humanoid
 from tasks.ingenuity import Ingenuity
 from tasks.quadcopter import Quadcopter
@@ -53,6 +54,7 @@ isaacgym_task_map = {
     "FrankaCabinet": FrankaCabinet,
     "Arm5Cabinet": Arm5Cabinet,
     "Arm5": Arm5,
+    "Odcdr6": Odcdr6,
     "Humanoid": Humanoid,
     "Ingenuity": Ingenuity,
     "Quadcopter": Quadcopter,
